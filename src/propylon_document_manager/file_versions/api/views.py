@@ -6,6 +6,7 @@ from rest_framework.viewsets import GenericViewSet
 from ..models import FileVersion
 from .serializers import FileVersionSerializer
 
+
 class FileVersionViewSet(RetrieveModelMixin, ListModelMixin, GenericViewSet):
     authentication_classes = []
     permission_classes = []
