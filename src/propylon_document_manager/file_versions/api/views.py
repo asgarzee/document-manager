@@ -29,5 +29,5 @@ class DocumentViewSet(ModelViewSet):
     def create(self, request, *args: Any, **kwargs: Any) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        document = serializer.save(user=request.user)
+        serializer.save(user=request.user)
         return Response({}, status=status.HTTP_201_CREATED)
