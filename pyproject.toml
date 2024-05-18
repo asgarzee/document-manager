@@ -86,3 +86,7 @@ generated-members = [
     "save",
     "delete",
 ]
+
+[tool.ruff]
+exclude = [".venv", "client"]
+src = ["propylon_document_manager"]
