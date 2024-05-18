@@ -10,12 +10,12 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     # API base url
-    path("api/", include(("propylon_document_manager.file_versions.urls", "documents"))),
-
+    path(
+        "api/", include(("propylon_document_manager.file_versions.urls", "documents"))
+    ),
     # DRF auth token
     path("api-auth/", include("rest_framework.urls")),
     path("auth-token/", obtain_auth_token),
-
     # Swagger
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(

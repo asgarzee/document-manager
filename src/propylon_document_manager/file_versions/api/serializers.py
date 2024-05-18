@@ -57,6 +57,5 @@ class DocumentCreateSerializer(serializers.Serializer):
 class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
-        exclude = ['user']
+        exclude = ["user"]
         depth = 1
-
