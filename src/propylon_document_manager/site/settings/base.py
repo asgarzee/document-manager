@@ -62,13 +62,13 @@ ROOT_URLCONF = "propylon_document_manager.site.urls"
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
+    "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
@@ -76,12 +76,14 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "allauth",
+    "allauth.account",
 ]
 
 LOCAL_APPS = [
     # Your stuff: custom apps go here
     "propylon_document_manager.file_versions",
-    "propylon_document_manager.accounts",
+    "propylon_document_manager.accounts.apps.AccountsConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -137,6 +139,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 # STATIC
@@ -278,9 +281,9 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Propylon Document Manager APIs',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Propylon Document Manager APIs",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
