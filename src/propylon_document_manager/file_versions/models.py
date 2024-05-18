@@ -14,7 +14,7 @@ class FileBase(models.Model):
 class File(FileBase):
     file_name = models.CharField(max_length=255)
     uploaded_file = models.FileField()
-    digest = models.CharField(max_length=32)
+    digest = models.CharField(max_length=32, unique=True)
 
     def __str__(self):
         return self.file_name
@@ -28,4 +28,4 @@ class FileVersion(models.Model):
 class Document(FileBase):
     file = models.ForeignKey(File, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    file_location = models.CharField(max_length=255)
+    file_location = models.CharField(max_length=255, unique=True)

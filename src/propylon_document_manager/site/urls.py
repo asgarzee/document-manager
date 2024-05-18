@@ -7,13 +7,15 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
-# API URLS
+
 urlpatterns = [
     # API base url
-    path("api/", include("propylon_document_manager.site.api_router")),
+    path("api/", include(("propylon_document_manager.file_versions.urls", "documents"))),
+
     # DRF auth token
     path("api-auth/", include("rest_framework.urls")),
     path("auth-token/", obtain_auth_token),
+
     # Swagger
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
