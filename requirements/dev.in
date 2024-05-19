@@ -11,6 +11,7 @@ django-stubs  # https://github.com/typeddjango/django-stubs
 pytest  # https://github.com/pytest-dev/pytest
 pytest-sugar  # https://github.com/Frozenball/pytest-sugar
 djangorestframework-stubs  # https://github.com/typeddjango/djangorestframework-stubs
+pytest-mock==3.14.0
 
 # Code quality
 # ------------------------------------------------------------------------------
@@ -20,6 +21,7 @@ coverage  # https://github.com/nedbat/coveragepy
 black  # https://github.com/psf/black
 pylint-django  # https://github.com/PyCQA/pylint-django
 pre-commit  # https://github.com/pre-commit/pre-commit
+ruff==0.4.4
 
 # Django
 # ------------------------------------------------------------------------------
@@ -29,3 +31,5 @@ django-debug-toolbar  # https://github.com/jazzband/django-debug-toolbar
 django-extensions  # https://github.com/django-extensions/django-extensions
 django-coverage-plugin  # https://github.com/nedbat/django_coverage_plugin
 pytest-django  # https://github.com/pytest-dev/pytest-django
+
+
