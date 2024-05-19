@@ -18,23 +18,12 @@ class DocumentViewSet(ViewSet):
     def upload_file(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         serializer = DocumentCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
-        return Response({}, status=status.HTTP_201_CREATED)
-
-    def get_object(self, version: str):
-        return Document.objects.get(file__digest=version, user=self.request.user)
-
-    def get_file_version(
-        self, request: Request, version: str, *args, **kwargs
-    ) -> Response:
-        try:
-            instance = self.get_object(version)
-        except Document.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = DocumentSerializer(instance)
-        return Response(serializer.data)
+        document_obj = serializer.save(user=request.user)
+        document_serializer = DocumentSerializer(document_obj)
+        return Response(document_serializer.data, status=status.HTTP_201_CREATED)
 
     def download_file(self, request, file_path):
+        version = request.query_params.get("version")
         try:
             revision = int(request.query_params.get("revision"))
         except ValueError:
@@ -45,22 +34,33 @@ class DocumentViewSet(ViewSet):
         except TypeError:
             revision = None
 
-        documents = Document.objects.filter(
+        if version and revision:
+            return Response(
+                {"detail": "Provide either version or revision"},
+                status=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            )
+
+        queryset = Document.objects.filter(
             file_location=file_path, user=self.request.user
         ).order_by("created_at")
 
-        if not documents:
+        if version:
+            queryset = queryset.filter(file__digest=version)
+            document = queryset.first()
+
+        if not queryset:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        if revision is None:
-            document = documents.last()
-        else:
-            document = documents[revision]
+        if not version:
+            if revision is None:
+                document = queryset.last()
+            else:
+                document = queryset[revision]
 
         return FileResponse(document.file.uploaded_file, as_attachment=True)
 
     def get_files(self, request: Request) -> Response:
-        file_location = request.query_params.get("file_location")
+        file_location = request.query_params.get("file-location")
         queryset = Document.objects.filter(user=self.request.user)
 
         if file_location:

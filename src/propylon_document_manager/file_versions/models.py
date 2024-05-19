@@ -14,7 +14,7 @@ class FileBase(models.Model):
 class File(FileBase):
     file_name = models.CharField(max_length=255)
     uploaded_file = models.FileField()
-    digest = models.CharField(max_length=32, unique=True)
+    digest = models.CharField(max_length=32)
 
     def __str__(self):
         return self.file_name
