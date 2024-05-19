@@ -28,4 +28,4 @@ class FileVersion(models.Model):
 class Document(FileBase):
     file = models.ForeignKey(File, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    file_location = models.CharField(max_length=255, unique=True)
+    file_location = models.CharField(max_length=255)

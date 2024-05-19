@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 
 from propylon_document_manager.file_versions.models import FileVersion, Document, File
 from propylon_document_manager.file_versions.utils import get_file_digest
@@ -29,6 +30,13 @@ class DocumentCreateSerializer(serializers.Serializer):
         data["digest"] = file_digest
         return data
 
+    def validate_file_location(self, value):
+        if value[0] == "/" or value[-1] == "/":
+            raise serializers.ValidationError(
+                "Leading and trailing forward slashes not permitted"
+            )
+        return value
+
     def create(self, validated_data):
         upload_file = validated_data["upload_file"]
         file_location = validated_data["file_location"]
@@ -44,18 +52,24 @@ class DocumentCreateSerializer(serializers.Serializer):
         if is_file_created:
             file.uploaded_file.save(file_path.as_posix(), upload_file)
 
-        try:
-            document = Document.objects.get(file=file, user=current_user)
-        except Document.DoesNotExist:
-            document = Document.objects.create(
-                file=file, user=current_user, file_location=file_location
-            )
+        document, is_document_created = Document.objects.get_or_create(
+            file=file, user=current_user, file_location=file_location
+        )
 
         return document
 
 
 class DocumentSerializer(serializers.ModelSerializer):
+    file_url = serializers.SerializerMethodField()
+    version = serializers.SerializerMethodField()
+
     class Meta:
         model = Document
-        exclude = ["user"]
+        fields = ("file_url", "version", "created_at", "modified_at", "file_location")
         depth = 1
+
+    def get_file_url(self, obj: Document) -> str:
+        return reverse("documents:download-file", args=[obj.file_location])
+
+    def get_version(self, obj: Document) -> str:
+        return obj.file.digest
