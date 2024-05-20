@@ -1,4 +1,5 @@
-##Introduction
+## Introduction
+
 Document manager is a small service which manages your documents. Implement a web application that allows users to store, at later retrieve, files at a specified URL.
 The application should be composed of two distinct components - frontend JavaScript
 application, and a backend API.
@@ -6,12 +7,13 @@ Your assessment should be based on the Propylon Document Management Assessment
 bootstrap project found here:
 https://github.com/propylon/document-manager-assessment
 
-##Objective
+## Objective
+
 The main objective is to implement the backend.
 
-##Requirements
+## Requirements
 
-####Functional
+#### Functional
 - Stores files of any type and name
 - Stores files at any URL
 - Does not allow interaction by non-authenticated users
@@ -21,11 +23,11 @@ The main objective is to implement the backend.
 - Demonstrate functionality that allows a client to retrieve any given version of document
 using a endpoint that implements a Content Addressable Storage mechanism.
   
-####Non-functional
+#### Non-functional
 - Demonstrate knowledge of best-practices in relation to unit testing.
 - Clear documentation detailing how to build and run the frontend and backend.
 
-####Stretch
+#### Stretch
 - Demonstrate basic read/write permissions enforcement on individual versions of
 documents.
 - Create a UI for viewing differences in content between file versions.

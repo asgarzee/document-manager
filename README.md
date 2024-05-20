@@ -2,8 +2,8 @@
 
 The Propylon Document Management Technical Assessment is a simple (and incomplete) web application consisting of a basic API backend and a React based client.  This API/client can be used as a bootstrap to implement the specific features requested in the assessment description. 
 
-##Documentation
-####You can find High level Design Document at /docs/HLD.md
+## Documentation
+#### You can find High level Design Document at /docs/HLD.md
 
 ## Getting Started
 ## Tech Stack
