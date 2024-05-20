@@ -31,6 +31,7 @@ mkdir src/propylon_document_manager/media src/propylon_document_manager/static
 ```shell
 docker compose up
 ```
+Server will be serving at http://0.0.0.0:8001/
 
 ###4. Create a User to start with the APIs
 ```shell
