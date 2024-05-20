@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: document-manager-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "python3 manage.py migrate
+      && python3 manage.py collectstatic --noinput
+      && python3 manage.py runserver 0.0.0.0:8001"
+    ports:
+      - 8001:8001
+    volumes:
+      - "./src:/opt/src"
+      - ".:/opt"
