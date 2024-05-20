@@ -23,6 +23,7 @@ Follow link to install [Docker](https://www.docker.com/products/docker-desktop/)
 
 ### 2. Create two directories media and static 
 ```shell
+cd document-manager
 mkdir src/propylon_document_manager/media src/propylon_document_manager/static
 ```
 
